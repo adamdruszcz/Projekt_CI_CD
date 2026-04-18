@@ -1,11 +1,17 @@
-from flask import  Flask
+from flask import Flask, render_template, request
 from datetime import datetime
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def hello():
-    return f"Czesć Merito! Mamy czas: {datetime.now()}"
+    a = b = s = None
+    if request.method == 'POST':
+        a = request.form['a']
+        b = request.form['b']
+        suma = int(a) + int(b)
+
+    return render_template("index.html", a=a, b=b, s=suma)
 
 
 if __name__ == '__main__':
